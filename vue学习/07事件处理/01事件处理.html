@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+    <h2>{{msg}}</h2>
+    <button v-on:click="show()">点我打印信息1</button>
+    <!-- 不加小括号可以调用 -->
+    <button v-on:click="show">点我打印信息1</button>
+    <button v-on:click="show2()">点我打印信息2</button>
+    <!-- 简写方式 -->
+    <button @click="show2()">点我打印信息2</button>
+    <button @click="show3($event,'加油')">点我打印信息3,传递参数</button><br/><br/>
+
+    <!-- 绑定事件阻止默认行为 -->
+    <a href="https://www.baidu.com" @click="show4">点我提示信息3(阻止默认行为)</a><br/><br/>
+    <!-- @click.prevent直接阻止叫做事件修饰符  -->
+    <a href="https://www.baidu.com" @click.prevent="show4">点我提示信息3(阻止默认行为)</a><br/><br/>
+
+    <!-- 阻止事件冒泡  stop也叫事件修饰符--> 
+    <div @click="show6">
+      <button @click.stop="show6">点我打印信息6</button>
+      <!-- 事件修饰符可以连续的写 -->
+      <a href="https://www.baidu.com" @click.prevent.stop="show6">点我提示信息3(阻止默认行为)</a><br/><br/>
+    </div>
+
+    <!-- 键盘事件 常用enter,esc -->
+    <input type="text" placeholder="按下回车提示数据" @keyup.enter="show7">
+    <input type="text" placeholder="按下回车提示数据" @keyup.13="show7">
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        msg: "你好世界"
+      }, 
+      methods: {
+        show(event){
+          console.log(1, event.target.innerText);
+        },
+        show2: function(){
+          console.log('信息2',this);
+        },
+        show3: function(event,content){
+          console.log('信息3',content);
+        },
+        show4: function(event){
+          event.preventDefault()
+          console.log('信息4');
+        },
+        show5: function(){
+          console.log('信息5');
+        },
+        show6: function(event){
+          event.stopPropagation()
+          console.log('信息6');
+        },
+        show7: function(event){
+          if(event.keyCode !== 13) return  // 靠程序员自己判断
+          console.log(event.target.value);
+        }
+      }
+    })
+   
+  </script>
+</body>
+</html>

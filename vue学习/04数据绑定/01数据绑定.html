@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+    单向数据绑定（v-bind）:<input type="text" :value="msg"></br></br> 
+    双向数据绑定:（v-model）<input type="text"  v-model:value="msg">
+    <!-- 简写 v-model就是针对input，textArea输入框的值使用的，类似于react中input的onChange语法-->
+    双向数据绑定:（v-model）<input type="text"  v-model="msg">
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        msg: "你好世界"
+      }, 
+      methods: {
+        
+      }
+    })
+    console.log(v);
+
+    // 第二种写法vm.$mount('#root')  这样就把vm作用到root上了
+    // const vm = new Vue({
+    //   data: {
+    //     msg: '111'
+    //   }
+    // })
+    // vm.$mount('#root')
+
+    // data的第二种写法，data可以是一个函数,在vue里面尽可能的少写箭头函数(组件中用的多)
+    // const v = new Vue({
+    //   el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      // data: function(){
+      //   return {
+      //     msg: '111'
+      //   }
+      // }
+    //   methods: {
+        
+    //   }
+    // })
+
+      // 对象里面函数的简写方式
+    // data(){
+      //   return {
+      //     msg: '111'
+      //   }
+      // }
+  </script>
+</body>
+</html>

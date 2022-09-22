@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 
+      1.插值语法 
+        功能： 用于解析标签体内容
+        举例：<h1>hello,{{school}}</h1>  里面的 {{school}}
+      2.指令语法
+        功能：用于解析标签(包括：标签属性，标签内容，绑定事件...)
+        举例：v-bind:href="url" 简写为 :href="url"
+   -->
+  <!-- 准备好一个容器 -->
+  <!-- 所谓的模板语法，就是html+js的混合体 -->
+  <div id="root">
+    <!-- 插值语法，不是插槽 -->
+    <h1>hello,{{school}}</h1>
+    <h2>{{add()}}</h2>
+    <!-- 指令语法 -->
+    <a v-bind:href="url" :x="url">百度</a>
+    <!-- 简写 -->
+    <a :href="url">百度</a>
+
+
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        school: "家里呆",
+        url: "https://cn.bing.com/search?q=%E7%99%BE%E5%BA%A6&PC=U316&FORM=CHROMN",
+        add:() => {
+          return "你好世界"
+        }
+      }, // data是数据存储的地方，为root容器提供数据，相当于react中的state
+    })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 加入改变了firstName的值，姓: <input type="text" v-model="firstName"><br/><br/> 会重新解析
+      名: <input type="text" v-model="lastName"><br/><br/> 不会解析
+       <span>全名: {{getFullName()}}</span>  因为我们不知道这里用了没有，所以它会重新解析
+  -->
+  <div id="root">
+    姓: <input type="text" v-model="firstName"><br/><br/>
+    名: <input type="text" v-model="lastName"><br/><br/>
+    <!-- 这里要注意一下，我们之前说的小括号可以不加是写指令调用方法的时候 -->
+    <!-- 只要改数据getFullName就会被调用 -->
+    <span>全名: {{getFullName()}}</span>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {  // 只要data里面的数据变量，它就会把#root里面模板重新解析一遍
+        firstName: "张",
+        lastName: "三"
+      }, 
+      methods: {
+       getFullName(){
+        return this.firstName + '-' + this.lastName
+       }
+      }
+    })
+   
+  </script>
+</body>
+</html>

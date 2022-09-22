@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+  </div>
+  <script>
+    // 如果判断一个函数里面的this,和对象里面的this是不一样的，对象没有作用域
+   let p = {
+    firstName: '张',
+    lastName: '三',
+    fullName: '三'
+   }
+
+   // 不使用框架编码时，什么时候用defineProperty，要追加的属性，来自于其他值的加工
+   Object.defineProperty(p, 'fullName', {
+    set(value){
+      const arr = value.split('-')
+      this.firstName = arr[0]
+      this.lastName = arr[1]
+    },
+    get(){
+      return this.firstName + '-' + this.lastName
+    }
+   })
+  </script>
+</body>
+</html>

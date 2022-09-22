@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+    姓：<input type="text" v-model="firstName"></br>
+    名:<input type="text" v-model="lastName"></br>
+    <span>全名:{{fullName}}</span>
+    <span>全名:{{getAllName()}}</span>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+       firstName: "张",
+       lastName: "三",
+      }, // data是数据存储的地方，为root容器提供数据，相当于react中的state
+      computed:{
+        fullName(){ // fullName什么时候会调用，初次渲染会调用，当依赖的值发生变化也会调用
+          return this.firstName+this.lastName
+        }
+      },
+      // getAllName只要data里面的数据发生变化就会调用，computer当依赖的值发生变化才会去调用
+      methods: {
+        getAllName:function()  {
+          return this.firstName+this.lastName
+        }
+      }
+    })
+    console.log(v);
+  </script>
+</body>
+</html>

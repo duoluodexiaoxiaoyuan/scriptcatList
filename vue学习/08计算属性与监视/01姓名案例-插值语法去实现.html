@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+    姓: <input type="text" v-model="firstName"><br/><br/>
+    名: <input type="text" v-model="lastName"><br/><br/>
+    <span>全名: {{firstName + '-' + lastName}}</span>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        firstName: "张",
+        lastName: "三"
+      }, 
+      methods: {
+       
+      }
+    })
+   
+  </script>
+</body>
+</html>
