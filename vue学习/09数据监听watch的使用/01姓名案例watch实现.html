@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 
+    watch监视的属性必须是已经存在的
+    1.当被监视的属性变化时，回调函数自动调用，进行相关操作
+    2.属性必须存在，才能进行监视
+    3.监视的两种写法
+      1.new vue传入watch配置
+      2.通过vm.$watch监视
+    computered和watch之间的区别：
+      1.只要是computed完成的功能，watch都可以完成
+      2.watch能完成的，computered不一定能完成，例如；watch可以进行异步操作(比如1s以后改变全名)  computed里面不能用异步，你会拿不到值，先记住就好了，我也没搞懂
+
+      备注：
+      1.所有被vue调用的函数，都不要写箭头函数
+      2。所有不是vue调用的函数，都要写箭头函数
+   -->
+  <div id="root">
+    姓: <input type="text" v-model="firstName"><br/><br/>
+    名: <input type="text" v-model="lastName"><br/><br/>
+    <span>全名: {{fullName}}</span>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        firstName: "张",
+        lastName: "三",
+        fullName: ""
+      },
+      watch: {
+        // 完整写法
+        firstName:{
+          immediate:true,  // 如果immediate为true,则handler初始化会调用一次
+          handler(newValue, oldValue){
+            this.fullName = newValue + '-' + this.lastName
+          }
+        },
+        lastName(newValue, oldValue){  //firstName什么时候被调用？firstName改变的时候会调用 watch中的this指的是vm
+          console.log('firstName');
+          this.fullName = this.firstName + '-' + newValue
+        }
+      }
+    })
+    console.log(v);
+
+    /*  精简写法
+       watch: {
+        firstName(newValue, oldValue){  //firstName什么时候被调用？firstName改变的时候会调用 watch中的this指的是vm
+          console.log('firstName');
+          this.fullName = newValue + '-' + this.lastName
+        },
+        lastName(newValue, oldValue){  //firstName什么时候被调用？firstName改变的时候会调用 watch中的this指的是vm
+          console.log('firstName');
+          this.fullName = this.firstName + '-' + newValue
+        }
+      }
+    
+    */
+
+    /* 
+      第二种写法 监测的数据firstName
+      vm.$watch('firstName', {
+          immediate:true,  // 如果immediate为true,则handler初始化会调用一次
+          handler(newValue, oldValue){
+            this.fullName = newValue + '-' + this.lastName
+          }
+      })
+    */
+  </script>
+</body>
+</html>

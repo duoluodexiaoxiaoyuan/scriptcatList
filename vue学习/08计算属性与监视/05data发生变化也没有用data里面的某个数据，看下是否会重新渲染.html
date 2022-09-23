@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 
+      只有data里面的数据发生变化，才会模板重新渲染，如果data里面的数据变化，但是变化的数据在模板里面用，页面不会进行重新渲染
+      vue内容监听的时候作了处理了，应该是检测到模板里面没有用，我就不重新渲染模板了。
+   -->
+  <div id="root">
+     <h2>{{school}}</h2>
+     <h2>{{number}}</h2>
+     <h2>{{sendMsg()}}</h2>
+     <h2>{{alltotal}}</h2>
+     <button @click="say">点击</button>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        school:"家里蹲大学",
+        name: "李四",
+        number: 1,
+        total:2,
+      },
+      methods: {
+        say:function()  {
+          this.number = this.number + 1
+          console.log('你好世界');
+        },
+        sendMsg: function(){
+          console.log("调用了");
+          return "你好"
+        }
+      },
+      computed: {
+        alltotal(){
+          return this.total
+        }
+      }
+    })
+    console.log(v);
+  </script>
+</body>
+</html>
