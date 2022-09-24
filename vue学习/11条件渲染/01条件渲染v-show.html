@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+  <style>
+    img{
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <h2>今天天气很{{isHot? '炎热':'凉爽'}}</h2>
+    <button @click="isHot = !isHot">切换天气</button>
+
+    <!-- 使用v-show作条件渲染 -->
+    <!-- 只有天气炎热，才会展示下面的div -->
+    <div v-show="isHot">
+      <img src="http://img7.dl.ltimg.net/emoji/egg/632d2ca3e7bce743313c1c1f?sign_old=aecd11b3c86b9a923d8b182ff3bf6109&old_t=632d3ab3&imageView2/1/w/300/h/300&sign=8c07ccc4f071a6732da5015e28564883&t=632e93f3" alt=""><br/>
+      <span>建议:心静自然会凉</span>
+    </div>
+
+     <!-- 只有天气凉爽，才会展示下面的div -->
+     <div v-show="!isHot">
+      <img src="http://img7.dl.ltimg.net/emoji/egg/632d2ca3e7bce74354e54d2f?sign_old=34d18f76a850bb3af5d9e5da07b76e5a&old_t=632d3ab3&imageView2/1/w/300/h/300&sign=2c0744c277c31c103d8c788bd41b6fdc&t=632e93f3" alt=""><br/>
+      <span>建议:穿个秋裤</span>
+    </div>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        isHot: true
+      }
+    })
+  </script>
+</body>
+</html>
