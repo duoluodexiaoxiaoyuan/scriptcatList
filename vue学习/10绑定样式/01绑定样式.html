@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+  <style>
+    .atguigu {
+      border: 3px solid black;
+    }
+    .classA {
+      background-color: skyblue;
+    }
+    .classB {
+      color: red;
+    }
+    .classC {
+      text-shadow: 2px 2px 3px yellow;
+    }
+  </style>
+</head>
+<body>
+  <!-- 对象里面的key都是字符串 -->
+  <!-- 
+    可以把内容赋值给变量的就叫做表达式
+    对象里面的key都是字符串
+   -->
+  <!-- 
+    1.绑定class样式
+     :class="xxx"  xxx可以是字符串，对象，数组
+    2.绑定style样式
+      :style = "{
+        color: activeColor,fontSize: fontSize + 'px'
+      }"
+      其中activeColor/fontSize是data操作
+   -->
+  <div id="root">
+    <!-- class的字符串写法，适用于:类名不确定要动态获取 -->
+    <h2 class="atguigu classA classB classC" :class="myStyle">过年好</h2>
+
+     <!-- class的对象写法，适用于:类名确定，但不确定用不用 -->
+     <h2 class="atguigu classA classB classC" :class="{classB: hasB,classA:hasA}">过年好</h2>
+     <!-- class的三元表达式写法，适用于:类名确定，但不确定用不用 -->
+     <h2 class="atguigu classA classB classC" :class="hasB ? classB : ''">过年好</h2>
+
+      <!-- class的数组写法，适用于:同时应用多个class -->
+      <h2 class="atguigu classA classB classC" :class="['classA','classB','classC']">过年好</h2>
+      <h2 class="atguigu classA classB classC" :class="[a,b,c]">过年好</h2>
+
+      <!-- 绑定style样式 -->
+      <h2 :style="size">过年好</h2>
+      <h2 :style="{fontSize: size+'px'}">过年好</h2>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        myStyle: "abc",
+        hasB: true, // 标识是否使用classB样式
+        hasA: false, // 标识是否使用classA样式
+        a: 'classA',
+        b:'classB',
+        c: 'classC',
+        size: "font-size: 40px",
+        size1:40
+      }
+    })
+  </script>
+</body>
+</html>
