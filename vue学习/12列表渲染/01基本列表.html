@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+    <h2>人员列表</h2>
+    <ul>
+      <!-- 指令前面没有加冒号的，但是动态的标签属性前面必须加冒号 -->
+      <!-- 使用v-for遍历数组 -->
+      <li v-for="(p,index) in persons" :key="p.id">
+        {{p.name}}-{{p.age}}
+      </li>
+    </ul>
+    <h2>汽车信息</h2>
+    <!-- 遍历对象 -->
+    <ul>
+      <li v-for="(value,key) in car" :key="key">
+        {{value}}
+      </li>
+    </ul>
+    <h2>遍历字符串</h2>
+    <ul>
+      <li v-for="(a,b) in str" >
+        {{a}}-{{b}}
+      </li>
+    </ul>
+
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        persons: [
+          {id:'001',name:"老刘",age:18,sex:"男"},
+          {id:'002',name:"老刘1",age:18,sex:"男"},
+          {id:'003',name:"老刘2",age:18,sex:"男"},
+        ],
+        car: {
+          name:"奔驰",
+          price:"60w",
+          color:'黑色'
+        },
+        str:"abcde"
+      }
+    })
+  </script>
+</body>
+</html>
