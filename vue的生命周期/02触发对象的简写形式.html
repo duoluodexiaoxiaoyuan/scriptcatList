@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 
+    methods里面放的都是程序员自定义的方法
+   -->
+  <div id="root">
+    <h2 :style="{opacity}">分手了怎么办?</h2>
+    <button @click="death">不活了</button>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        opacity:0.5
+      },
+      methods:{
+        death(){
+          this.$destroy()  // 移除状态的监听，vm还在，只是vm不管理root容器的数据了，数据的监听也没了
+        }
+       
+      },
+      // vue实例挂载完毕
+      mounted(){
+        console.log('vm开始管理root容器了');
+        this.timer = setInterval(() => {
+          this.opacity -= 0.01
+          if(this.opacity <=0){
+            this.opacity = 1
+          }
+        }, 200)
+      },
+
+      // vm将要销毁
+      beforeDestroy(){
+        clearInterval(this.timer)
+      }
+    })
+  </script>
+</body>
+</html>

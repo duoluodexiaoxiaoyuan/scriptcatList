@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 
+    想要对数据加工后再展示且不想破坏原数据这时最好用计算属性
+   -->
+  <div id="root">
+    <h2>人员列表</h2>
+    <input type="text" placeholder="请输入姓名" v-model="inputName">
+    <button @click="sortType = 1">年龄升序</button>
+    <button @click="sortType = 2">年龄降序</button>
+    <button @click="sortType = 0">原顺序</button>
+    <ul>
+      <!-- 指令前面没有加冒号的，但是动态的标签属性前面必须加冒号 -->
+      <!-- 使用v-for遍历数组 -->
+      <li v-for="(p,index) in fmtPersons" :key="p.id">
+        {{p.name}}-{{p.age}}
+      </li>
+    </ul>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        inputName: "",
+        sortType:0,  // 0代表原顺序，1代表升序，2代表降序
+        persons: [
+          {id:'001',name:"马冬梅",age:18,sex:"男"},
+          {id:'002',name:"周冬雨",age:20,sex:"男"},
+          {id:'003',name:"周杰伦",age:21,sex:"男"},
+          {id:'004',name:"温兆伦",age:15,sex:"男"},
+        ],
+      },
+      computed: {
+        fmtPersons(){
+          const {inputName, sortType} = this
+          // 根据关键词过滤
+          let arr = this.persons.filter((p) => {
+            return  p.name.indexOf(inputName) != -1
+          })
+          // 若需要排序
+          if(sortType){
+              // 排序 sort影响原数组
+              arr.sort((a,b) => {
+                if(sortType === 1) return a.age - b.age   // 前 - 后 是升序，后 - 前是降序
+                else return b.age - a.age
+              })
+          }
+          return arr
+        }
+      }
+    })
+  </script>
+</body>
+</html>

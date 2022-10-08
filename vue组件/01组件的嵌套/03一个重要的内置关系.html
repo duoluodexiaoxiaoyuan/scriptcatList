@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <!-- 所谓的模板语法，就是html+js的混合体 -->
+  <!-- app是aplication的简称  -->
+  <!-- 各种属性各种方法这些东西都是属于api类的 -->
+  <div id="root">
+      <school></school>
+  </div>
+  <script>
+    Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+
+    // 定义一个构造函数
+    function Demo(){
+      this.a = 1
+      this.b =  2 
+    }
+
+    // 创建一个Demo的实例对象
+    const d = new Demo()
+
+    // 只要你是一个函数，你身上一定有这么一个属性
+    // 显示原型属性和隐式原型属性都指向了一个共同的原型对象
+    console.log(Demo.prototype );    // 显示原型属性 
+    console.log(d.__proto__ );   // 隐式原型属性 
+
+    // 程序员通过显式原型属性操作原型对象，追加一个x属性，值为99
+    Demo.prototype.x = 99
+    // 然后实例对象通过隐式原型属性去读
+    console.log(d.__proto__.x); 
+    console.log(d.x);  // d.x 相当于 d.__proto__.x
+
+
+
+    const school = Vue.extend({
+      name:'school',
+      template: `
+        <div>
+          {{schoolName}}
+          <student></student> 
+        </div>
+      `,
+      data(){
+        return {
+          schoolName: "家里蹲"
+        }
+      }
+    })
+
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      components: {
+       school
+      }
+    })
+
+  </script>
+</body>
+</html>
+

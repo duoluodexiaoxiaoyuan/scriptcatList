@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 实例的隐式原型属性永远指向自己缔造者的原型对象  -->
+  <!-- 
+    1.一个重要的内置关系:VueComponent.prototype.__proto__ === Vue.prototype
+    2.为什么要有这个关系:让组件实例对象vc可以访问到Vue原型上的属性和方法(注意这里说的是实例对象)
+   -->
+  <div id="root">
+      {{msg}}
+  </div>
+  <script>
+    Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+
+    const school = Vue.extend({
+      name:'school',
+      template: `
+        <div>
+          {{schoolName}}
+          <student></student> 
+        </div>
+      `,
+      data(){
+        return {
+          schoolName: "家里蹲"
+        }
+      }
+    })
+
+    console.log(school.prototype.__proto__ == Vue.prototype);
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        msg:'nihao'
+      }
+    })
+
+  </script>
+</body>
+</html>
+

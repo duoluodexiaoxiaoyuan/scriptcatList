@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <!-- 所谓的模板语法，就是html+js的混合体 -->
+  <!-- app是aplication的简称  -->
+  <div id="root">
+    <app></app>
+  </div>
+  <script>
+    Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+
+    // 因为school里面用到了student,所有student要在school之前定义 
+    const student = Vue.extend({
+      name:'student',
+      template: `
+        <div>
+          {{studentName}}
+        </div>
+      `,
+      data(){
+        return {
+          studentName: "张三"
+        }
+      }
+    })
+
+    const school = Vue.extend({
+      name:'school',
+      template: `
+        <div>
+          {{schoolName}}
+          <student></student> 
+        </div>
+      `,
+      data(){
+        return {
+          schoolName: "家里蹲"
+        }
+      },
+      // 局部注册
+      components:{
+        student
+      }
+    })
+
+
+    const hello = Vue.extend({
+      name:'hello',
+      template: `
+        <div>
+          {{msg}}
+        </div>
+      `,
+      data(){
+        return {
+          msg: "hello world,welcome to out home"
+        }
+      }
+    })
+
+
+    // 定义app组件
+    const app = Vue.extend({
+      name:'app', 
+      template: `
+         <div>
+            <school></school>
+            <hello></hello> 
+        </div>
+      `,
+      components:{
+        school,
+        hello
+      }
+    })
+
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      components: {
+       app
+      }
+    })
+
+  </script>
+</body>
+</html>
+

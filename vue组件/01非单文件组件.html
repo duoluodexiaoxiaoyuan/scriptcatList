@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <div id="root">
+    <!-- 
+      这样写是有问题的
+      <school/>
+     <student/>
+     -->
+     <school></school>
+     <hr>
+     <student></student>
+     <hr>
+     <hello></hello>
+  </div>
+  <script>
+    // 组件的使用过程，先创建，再注册，再使用
+
+    // 创建school组件
+    const school = Vue.extend({
+      // 一定不要写el配置项,因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+      // el: "#root", 
+      template: `
+          <div>
+            <h2>{{schoolName}}</h2>
+            <h2>{{address}}</h2>
+          </div>
+      `,
+      data(){
+        return {
+          schoolName:"家里蹲",
+          address: "太平路"
+        }
+      },
+    })
+
+    const student = Vue.extend({
+      // 一定不要写el配置项,因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+      // el: "#root", 
+      template: `
+          <div>
+            <h2>{{studentName}}</h2>
+            <h2>{{address}}</h2>
+          </div>
+      `,
+      data(){
+        return {
+          studentName:"张三",
+          address: "杭州"
+        }
+      },
+    })
+
+    const hello = Vue.extend({
+      // 一定不要写el配置项,因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+      // el: "#root", 
+      template: `
+          <div>
+            <h2>你好世界</h2>
+          </div>
+      `,
+    })
+
+    // 全局注册组件
+    Vue.component('hello',hello)
+
+    // 创建一个Vue的实例对象，并传入配置对象
+    const vm = new Vue({
+      el: "#root", 
+      // 注册组件(局部注册)
+      components: {
+        school,
+        student
+      }
+    })
+  </script>
+</body>
+</html>

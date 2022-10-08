@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <title>初始vue</title>
+</head>
+<body>
+  <!--
+    第一个问题：分析一下school组件的本质是什么东西，通俗点说就是它的数据类型是哪一种 
+
+  -->
+  <!-- 
+    关于VueComponent:
+      1.school组件本质是一个名为VueComponent的构造函数，且不是程序员定义的，是Vue.extend生成的。
+      2.我们只需要写<school/>或<school></school>,Vue结息时会帮我们创建school组件的实例对象，即Vue帮我们执行的: new VueComponent(options)。
+         Vue.extend({options}) 对应 new VueComponent(options)里面的options
+      3.特别注意：每次调用Vue.extend,返回的都是一个全新的VueComponent！！！
+         school和vue的VueComponent不是一个VueComponent
+      4.关于this指向:
+        1.组件配置中:
+          data函数，methods中的函数，watch中的函数，computed中的函数，它们的this均是【VueComponent实例对象】(简称vc)
+        2.new Vue()配置中:
+          data函数，methids中的函数，watch中的函数，computed中的函数，它们中的this均是【Vue实例对象】（简称vm）
+   -->
+  <div id="root">
+    <school></school>
+    <hello></hello>
+  </div>
+  <script>
+    Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
+
+    const school = Vue.extend({
+      name:'school',
+      template: `
+        <div>
+          {{schoolName}}  
+          <button @click='showName'>点我提示学校名 </button>
+        </div>
+      `,
+      data(){
+        return {
+          schoolName: "家里蹲"
+        }
+      },
+      methods: {
+        showName(){
+          alert(this.schoolName)
+        }
+      }
+    })
+
+    console.log('@'+school);  // 是一个构造函数(意味着使用的时候要通过new的方式去调用)
+
+    const hello = Vue.extend({
+      name:'hello',
+      template: `
+        <div>
+          {{msg}}
+        </div>
+      `,
+      data(){
+        return {
+          msg: "hello world,welcome to out home"
+        }
+      }
+    }) 
+
+    console.log('#'+hello);
+    console.log(school == hello);
+
+    school.a = 99  // 如果hello和school是一个东西,那么相当于hello.a也变成了99了
+
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      components: {
+       school,
+       hello 
+      }
+    })
+
+  </script>
+</body>
+</html>
+
+ 
