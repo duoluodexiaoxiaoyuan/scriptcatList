@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <!-- 加入我直接写.one 那么header,content,footer里面的样式都会设置 -->
+  <!-- 那么我只想header里面的变，要不我就把类名起成唯一的，要不然就 .header .one 这样写 -->
+  <!-- 
+    当header里面的one不满足样式的需求，当时content,footer里面的one都用着同一个，这个时候我们就可以给header里面的one再起一个类名。
+    <div class="one one_one">one</div>
+    然后.one_one{}里面写样式
+
+    然后别的类名想用one_one就写一个这样的类名
+
+    假如我们这样写 .one.one_one{}   表示的是只有某个标签同时包含这两个类名样式才会生效
+   -->
+  <div class="header">
+    <div class="one">one</div>
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+  <div class="content">
+    <div class="one">one</div>
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+  <div class="footer">
+    <div class="one">one</div>
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+</body>
+</html>
