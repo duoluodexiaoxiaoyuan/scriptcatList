@@ -1,119 +1,49 @@
 // ==UserScript==
-// @name         b站的收藏夹悬浮才显示的内容加个button点击全部显示
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @license MIT
-// @description  因为我需要看到作者，所以才想做这个功能
-// @author       xiaoxiami
-// @match        https://space.bilibili.com/*/favlist?*
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @grant        unsafeWindow
-// @grant        GM_addStyle
-// @grant        unsafeWindow
-// @connect      api.bilibili.com
+// @name         油猴中文网每日签到
+// @version      0.1.0
+// @description  天天签个到有点参与感点
+// @author       xiaofeiwu
+// @crontab      * once * * *
 // @grant        GM_xmlhttpRequest
+// @grant        GM_notification
+// @connect      bbs.tampermonkey.net.cn
 // ==/UserScript==
 
-(function () {
-  function request(url) {
-    return new Promise((resolve, reject) => {
-      GM_xmlhttpRequest({
-        url: url,
-        method: 'GET',
-        headers: {
-          cookie: document.cookie,
-        },
-        onload: function (xhr) {
-          let res = JSON.parse(xhr.responseText);
-          resolve(res);
-        },
-      });
-    });
-  }
 
-  // 获取我们需要的网页上的dom
-  function getDomList() {
-    // 直接拿到页面显示的每个视频的li
-    let liList = document.getElementsByClassName(
-      'fav-video-list clearfix content'
-    )[0].childNodes;
-    return liList;
-  }
 
-  // 获取url参数
-  function getUrlParam(name) {
-    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'); //构造一个含有目标参数的正则表达式对象
-    var r = window.location.search.substr(1).match(reg); //匹配目标参数
-    if (r != null) return unescape(r[2]);
-    return null; //返回参数值
-  }
 
-  // 判断当前页数
-  function judgePage() {
-    let pages =document.getElementsByClassName("be-pager")[0].childNodes
-    for (let item in pages) {
-      if(pages[item].classList && pages[item].classList.length > 1){
-          let page = pages[item].innerText
-          if(page == "上一页") return 1
-          return page
+
+
+return new Promise((resolve, reject) => {
+  //   * * * * * * 每秒运行一次
+  //   * * * * * 每分钟运行一次
+  //   0 */6 * * * 每6小时的0分时执行一次
+  //   15 */6 * * * 每6小时的15分时执行一次
+  //   * once * * * 每小时运行一次
+  //   * * once * * 每天运行一次
+  //   * 10 once * * 每天10点-10:59中运行一次,假设当10:04时运行了一次,10:05-10:59的后续的时间将不会再运行
+  //   * 1,3,5 once * * 每天1点3点5点中运行一次,假设当1点时运行了一次,3,5点将不会再运行
+  //   * */4 once * * 每天每隔4小时检测运行一次,假设当4点时运行了一次,8,12,16,20,24点等后续的时间将不会再运行
+  //   * 10-23 once * * 每天10点-23:59中运行一次,假设当10:04时运行了一次,10:05-23:59的后续时间将不会再运行
+  //   * once 13 * * 每个月的13号的每小时运行一次
+  GM_xmlhttpRequest({
+      method: "POST",
+      url: `https://bbs.tampermonkey.net.cn/plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=1&inajax=1`,
+      onload: xhr => {
+          console.log(xhr)
+          GM_notification(xhr)
+          // 这里我们通过xhr拿值的时候先调试一些确认取得是哪个字段
+          // let data = JSON.parse(xhr.response)
+          // GM_notification(data.note)
+          // GM_notification(data.content)
+      },
+      onerror: xhr => {
+          console.log(xhr)
+          GM_notification(xhr)
+          // GM_notification("接口请求失败")
+          // reject(xhr)
       }
-    }
-  }
-
-  setTimeout(() => {
-    // 默认是不显示的
-    let flag = false;
-    let playPosition = document.getElementsByClassName('favInfo-details')[0];
-    let getHoverContent = `<button id="getHoverContent">控制显示和隐藏悬浮内容<button> <button id="displayUp">显示删除的视频是哪个up</button>`;
-    playPosition.insertAdjacentHTML('afterend', `${getHoverContent}`);
-    let jianTingButton = document.getElementById('getHoverContent');
-    let jianTingDisplayUpButton = document.getElementById('displayUp');
-    jianTingDisplayUpButton.addEventListener('click', () => {
-      // https://space.bilibili.com/778482303/favlist?fid=1590135214&ftype=create   // 这里的778482303对应的就是用户id,1590135214对应的就是每个收藏夹的fid
-      let fid = getUrlParam('fid');
-      // 判断当前是第几页
-      let page = judgePage()
-      request(`https://api.bilibili.com/x/v3/fav/resource/list?media_id=${fid}&pn=${page}&ps=20&keyword=&order=mtime&type=0&tid=0&platform=web&jsonp=jsonp`).then((res) => {
-        let { medias } = res.data
-        let liList = getDomList()
-        console.log(medias);
-        // 拿到当前页收藏的up的视频list
-        // https://space.bilibili.com/23207098
-        medias.map((media,index) => {
-          if(media.title == "已失效视频") {
-            let url = "https://space.bilibili.com/" + media.upper.mid
-            let shipinUrl = "https://www.bilibili.com/" + media.bvid
-            liList[index].innerHTML = `<a href=${url} target="_blank"><span id="upName">${media.upper.name}<span/>的<span id="shipinName">${media.intro}</sapn>视频已失效，点击跳转其主页</a><p><a href=${shipinUrl}   target="_blank">当然你也可以点击此处跳到视频页确认一下</a></p>`
-          }
-        })
-      }).catch(err => {
-
-      })
-    });
-  }, 2000);
-})();
-// 参考文章https://www.jianshu.com/p/d3f5d9565886
-GM_addStyle(`
-#getHoverContent {
-  background-color: skyblue;
-  height: 30px;
-}
-
-#displayUp {
-  background-color: skyblue;
-  height: 30px;
-}
-#getHoverContent+button {
-  display:none
-}
-
-#upName {
-  background-color: pink;
-}
-#shipinName {
-  background-color: orange;
-}
-
-
-
-`);
+  })
+}).catch(err => {
+  GM_notification("接口请求失败")
+});
