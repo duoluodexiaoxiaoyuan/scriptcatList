@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<div>
+  <div id="container">
+
+  </div>
+  <script>
+    // tag标签名字，content标签内容,className是class属性的名字，idName是id属性的名字，
+    function createTag(tag,content,tagClassName,tagIdName){
+      console.log(tagClassName, tagIdName)
+      var newTag = document.createElement(tag)
+      newTag.setAttribute("id", tagIdName);//给创建的div设置id值； 
+      newTag.className=tagClassName; //给创建的div设置class；
+      newTag.innerText = content
+      return newTag
+    }
+    let a =  createTag('span','你好世界', 'header', 'tou')
+    setTimeout(() => {
+      document.getElementById('container').appendChild(a)
+    }, 5000)
+    
+  </script>
+</div>
+</html>
