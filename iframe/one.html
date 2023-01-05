@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>one</div>
+  <button onclick="createFrame()">点击</button>
+  <iframe id="myframe" src="">
+    <p>你的浏览器不支持iframes。</p>
+  </iframe>
+  <script>
+    console.log(parent.location);
+    function createFrame() {
+      document.getElementById('myframe').src = 'http://127.0.0.1:5500/iframe/two.html'
+    }
+  </script>
+</body>
+</html>
