@@ -5,14 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #content::after {
+      content: '你好世界';
+    }
+  </style>
 </head>
 <body>
-  <div id="content">你好</div>
-  <script>
-    // 这样写也不会挂载到window上
-    let num = 5
-    console.log(window.num)
-    console.log()
-  </script>
+  <div id="content"></div>
 </body>
 </html>

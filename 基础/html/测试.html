@@ -1,0 +1,16 @@
+<style>
+	p:after{content:'我是后缀'}
+</style>
+
+
+<script>
+var css=function(t,s){
+    s=document.createElement('style');
+    s.innerText=t;
+    document.body.appendChild(s);
+};
+
+document.onclick=function(){
+    css('p:after{content:\'修改一下\'}');
+};
+</script>
