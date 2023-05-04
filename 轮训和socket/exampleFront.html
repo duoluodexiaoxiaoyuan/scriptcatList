@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>实时显示排名</title>
+  <style>
+    .screen {
+      width: 50%;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen" id="screen1"></div>
+  <div class="screen" id="screen2"></div>
+  <div class="screen" id="screen3"></div>
+  <div class="screen" id="screen4"></div>
+
+  <script>
+    // 创建WebSocket连接
+    const ws = new WebSocket('ws://localhost:8080');
+
+    // 监听WebSocket连接事件
+    ws.onopen = function() {
+      console.log('WebSocket连接已建立');
+    };
+
+    // 监听WebSocket消息事件
+    ws.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      // 在页面上更新排名信息
+      updateRanking(data);
+    };
+
+
+    // 发送WebSocket消息
+    function sendRanking() {
+      const ranking = getRanking(); // 获取排名信息
+      ws.send(JSON.stringify(ranking)); // 发送排名信息
+    }
+
+    // 更新排名信息
+    function updateRanking(data) {
+      const screen = document.getElementById(`screen${data.screen}`);
+      screen.innerHTML = `
+        <h2>第${data.screen}屏</h2>
+        <ul>
+          ${data.ranking.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      `;
+    }
+
+    // 获取排名信息
+    function getRanking() {
+      // 这里使用模拟数据，实际应该通过接口获取排名信息
+      return {
+        screen: Math.floor(Math.random() * 4) + 1, // 随机选择一块屏幕
+        ranking: [
+          '张三',
+          '李四',
+          '王五',
+          '赵六',
+          '钱七'
+        ]
+      };
+    }
+
+    // 定时发送排名信息
+    setInterval(sendRanking, 5000);
+  </script>
+</body>
+</html>
