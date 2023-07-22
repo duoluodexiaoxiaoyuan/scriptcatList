@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>使用对象中的变量表示颜色的示例</title>
+    <style>
+      /* 定义变量 */
+      :root {
+        --primary-color: #007bff;
+        --secondary-color: #6c757d;
+        --accent-color: #ffc107;
+      }
+
+      /* 使用变量 */
+      body {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+
+      h1 {
+        color: var(--accent-color);
+      }
+      div {
+        color: var(--hello-color);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>这是一个使用对象中的变量表示颜色的示例</h1>
+    <p>主要颜色为蓝色，次要颜色为灰色，强调颜色为黄色。</p>
+    <div>你好世界</div>
+    <script>
+      // 定义颜色变量对象
+      const colors = {
+        primary: 'skyblue',
+        secondary: 'red',
+        accent: 'orange',
+        hello: 'blue'
+      };
+
+      // 封装设置变量值的函数
+      function setColors(colors) {
+        Object.entries(colors).forEach(([key, value]) => {
+          document.documentElement.style.setProperty(`--${key}-color`, value);
+        });
+      }
+
+      // 使用函数设置变量值
+      setColors(colors);
+    </script>
+  </body>
+</html>

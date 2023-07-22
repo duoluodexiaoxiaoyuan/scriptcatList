@@ -10,12 +10,12 @@
 (function() {
   'use strict';
 
-  setTimeout(() => {
+  setInterval(() => {
       // 输入支付密码
       document.querySelector('#payPassword_rsainput').value='123456'
       setTimeout(() => {
           // 点击付款
-          // document.querySelector('#J_authSubmit').click()
+          document.querySelector('#J_authSubmit').click()
       }, 1000)
   }, 3000)
 })();
