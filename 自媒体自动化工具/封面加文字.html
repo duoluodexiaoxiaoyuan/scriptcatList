@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 免费去水印工具  https://zh-cn.aiseesoft.com/watermark-remover-online/ -->
+  <style>
+    #image {
+      max-width: 1280px;
+      max-height: 720px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <img id="image" src="./image/cover.png" style="display: none;">
+    <input type="text" id="text">
+    <button id="button">添加文字</button>
+  </div>
+  <script>
+    // 获取元素
+    const image = document.getElementById('image');
+    const textInput = document.getElementById('text');
+    const button = document.getElementById('button');
+
+    const input = document.getElementById('text');
+
+    input.addEventListener('keypress', function (event) {
+      if (event.keyCode === 13 && event.target.value !== '') {
+        addCover()
+      }
+    });
+
+    function addCover() {
+      const text = textInput.value.trim();
+
+      // 创建画布
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      // 获取画布上下文
+      const ctx = canvas.getContext('2d');
+
+      // 绘制图片
+      ctx.drawImage(image, 0, 0);
+
+      // 绘制文本
+      ctx.font = '150px Arial';
+      ctx.fillStyle = 'orange';
+      ctx.fillText(text, 250, 400);
+
+      // 将画布转换为Blob对象
+      canvas.toBlob(blob => {
+        // 创建URL对象
+        const url = URL.createObjectURL(blob);
+
+        // 创建一个新的image元素，并将URL设置为其src属性
+        const newImage = document.createElement('img');
+        newImage.src = url;
+        document.body.appendChild(newImage);
+      });
+
+    }
+
+    // 添加点击事件处理函数
+    button.addEventListener('click', () => {
+      addCover();
+    });
+  </script>
+</body>
+
+</html>
