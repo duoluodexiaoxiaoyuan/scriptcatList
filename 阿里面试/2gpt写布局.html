@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 当我们设置一个元素的宽度为 100% 时，
+    它会占据其父元素的全部宽度。但是在这个题目中，我们需要在容器的左右两侧留出 18px 的空白，
+    因此需要减去这个空白的宽度，才能让容器的实际宽度为浏览器的宽度减去 36px。
+    calc() 函数可以进行数学计算，它的语法为 calc(expression)，
+    其中 expression 是一条数学表达式，可以包含加、减、乘、除等运算符和长度单位。
+    在这个题目中，我们使用 calc(100% - 36px) 来计算容器的实际宽度。 -->
+  <style>
+    body {
+      margin: 0;
+    }
+    .container {
+      height: 200px;
+      width: calc(100% - 36px);
+      margin-left: 18px;
+      margin-right: 18px;
+      display: flex;
+      background-color: orange;
+    }
+    .left {
+      height: 168px;
+      width: 100px;
+      margin: auto 0;
+      line-height: 168px;
+      background-color: red;
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .right-top {
+      width: 100px;
+      height: 50px;
+      overflow: hidden;
+      /* text-overflow: ellipsis; */
+      white-space: nowrap;
+    }
+    .right-bottom {
+      width: auto;
+      max-width: calc(100% - 100px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">divA</div>
+    <div class="right">
+      <div class="right-top">文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1</div>
+      <div class="right-bottom">文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2</div>
+    </div>
+  </div>
+</body>
+</html>
