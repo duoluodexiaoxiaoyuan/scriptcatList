@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      height: 200px;
+      width: 100%;
+      margin-left: 18px;
+      margin-right: 18px;
+      display: flex;
+      background-color: orange;
+    }
+    .left {
+      height: 168px;
+      width: 100px;
+      /* align-items: center; */
+      line-height: 168px;
+      background-color: red;
+    }
+    .right {
+
+    }
+    .right-top {
+      width: 100px;
+      height: 50px;
+      text-overflow: hidden;
+    }
+    .right-bottom {
+      text-overflow: ellipsis;
+      height: 50px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">divA</div>
+    <div class="right">
+      <div class="right-top">文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1</div>
+      <div class="right-bottom">文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2文本2</div>
+    </div>
+  </div>
+</body>
+</html>

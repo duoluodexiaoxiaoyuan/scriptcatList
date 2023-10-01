@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>定位演示</title>
+  <style>
+    .parent {
+      position: relative;
+      width: 500px;
+      height: 300px;
+      border: 1px solid black;
+    }
+    
+    .child1 {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 200px;
+      height: 100px;
+      background-color: red;
+    }
+    
+    .child2 {
+      position: absolute;
+      bottom: 20px; 
+      right: 20px;
+      width: 100px;
+      height: 50px;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="parent">
+    <div class="child1"></div>
+    <div class="child2"></div>
+  </div>
+
+</body>
+</html>

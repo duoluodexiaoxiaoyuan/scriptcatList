@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <input placeholder="请输入内容"> -->
+  <textarea placeholder="请输入内容" rows="1" onclick="getContent()"></textarea>
+  <button onclick="getContent()">点击</button>
+  <script>
+    function getContent() {
+       // 获取textarea的内容
+      var textarea = document.querySelector('textarea')
+      console.log(textarea.value)
+    }
+   
+  </script>
+</body>
+</html>
